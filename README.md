@@ -13,7 +13,7 @@ Gotek 3-digit LED display driver
 
 This repository is based on an article found here [[TM1651 Arduino Library]](https://www.instructables.com/id/Arduino-Library-and-Examples-for-TM1651-New-Style-/) 
 
-The original work was a library for a 10 bar LED display, but it used the same TM1651 chip at the Gotek 3 digit LED display. So I re-worked it to drive the LEDC68 circuit board from Gotek drives where they have been upgraded to OLED.
+The original work was a library for a 10 bar LED display, but it used the same TM1651 chip as the Gotek 3 digit LED display. So I re-worked it to drive the LEDC68 circuit board from Gotek drives. You can find plenty of these displays from people who have upgraded to OLED.
 
 There is a datasheet in the docs directory.
 
