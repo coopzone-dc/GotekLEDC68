@@ -17,7 +17,7 @@ There is a datasheet in the docs directory.
 
 Connections to the board are (veiwed from the rear):
 
-![LEDC68 Pinout](https://github.com/coopzone-dc/Gotek-3-digit-LEDC68-TM1651/blob/master/doc/LEDC68-pin.png)
+![LEDC68 Pinout](https://github.com/coopzone-dc/GotekLEDC68/blob/master/docs/LEDC68-pin.png)
 
 <pre>
 !----------------------------!
