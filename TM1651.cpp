@@ -44,28 +44,28 @@ TM1651::TM1651(uint8_t Clk, uint8_t Data)
   pinMode(Datapin,OUTPUT);
 }
 
-void TM1651::init()
-{
-  set(BRIGHT_TYPICAL);
-  clearDisplay();
-}
+//void TM1651::init()
+//{
+//  set(BRIGHT_TYPICAL);
+//  clearDisplay();
+//}
 
 void TM1651::writeByte(int8_t wr_data)
 {
-  uint8_t i,count1;   
+  uint8_t i,count1=0;   
   for(i=0;i<8;i++)        //send 8bit data
   {
     digitalWrite(Clkpin,LOW);      
     if(wr_data & 0x01)digitalWrite(Datapin,HIGH);//LSB first
     else digitalWrite(Datapin,LOW);
-	delayMicroseconds(3);
+    delayMicroseconds(COUNT/2);
     wr_data >>= 1;      
     digitalWrite(Clkpin,HIGH);
-	delayMicroseconds(3);
-      
+    delayMicroseconds(COUNT/2);
   }  
   digitalWrite(Clkpin,LOW); //wait for the ACK
   digitalWrite(Datapin,HIGH);
+  delayMicroseconds(COUNT/4);
   digitalWrite(Clkpin,HIGH);     
   pinMode(Datapin,INPUT);
   while(digitalRead(Datapin))    
@@ -80,15 +80,16 @@ void TM1651::writeByte(int8_t wr_data)
     pinMode(Datapin,INPUT);
   }
   pinMode(Datapin,OUTPUT);
-  
 }
+
 //send start signal to TM1651
 void TM1651::start(void)
 {
   digitalWrite(Clkpin,HIGH);//send start signal to TM1651
   digitalWrite(Datapin,HIGH);
-  delayMicroseconds(2);
+  delayMicroseconds(COUNT/2);
   digitalWrite(Datapin,LOW); 
+  delayMicroseconds(COUNT/2);
   digitalWrite(Clkpin,LOW); 
 } 
 //End signal
@@ -96,7 +97,9 @@ void TM1651::stop(void)
 {
   digitalWrite(Clkpin,LOW);
   digitalWrite(Datapin,LOW);
+  delayMicroseconds(COUNT/2);
   digitalWrite(Clkpin,HIGH);
+  delayMicroseconds(COUNT/2);
   digitalWrite(Datapin,HIGH); 
 }
 
@@ -139,30 +142,36 @@ void TM1651::displayDP(uint8_t dp)
 {
   uint8_t SegData;
 
-  if (dp == 1) SegData = 0x08;
-  else SegData = 0x00;
+  //if (dp == 1) SegData = 0x08;
+  //else SegData = 0x00;
   start();          //start signal sent to TM1651 from MCU
-  writeByte(ADDR_FIXED);//
-  stop();           //
-  start();          //
+  writeByte(ADDR_FIXED);
+  stop();  
+  start();
   writeByte(STARTADDR + 3);// digit pos 3 controls decimal point
-  writeByte(SegData);//
-  stop();            //
-  start();          //
+  //writeByte(SegData);
+  writeByte(dp);
+  stop();      
+  start();  
   writeByte(Cmd_DispCtrl);// 88+0 to 7 brightness, 88=display on
-  stop();           //
+  stop();  
 }
 
-void TM1651::clearDisplay(void)
+void TM1651::displayClear(void)
 {
  displayDP(0);
  displayInteger(0);
 }
-//To take effect the next time it displays.
-void TM1651::set(uint8_t brightness,uint8_t SetData,uint8_t SetAddr)
+
+void TM1651::displaySet(uint8_t brightness)
 {
-  Cmd_SetData = SetData;
-  Cmd_SetAddr = SetAddr;
-  Cmd_DispCtrl = 0x88 + brightness;//Set the brightness and it takes effect the next time it displays.
+  Cmd_DispCtrl = 0x88 + brightness;//Set the brightness and turn on
 }
 
+void TM1651::displayOff()
+{
+  Cmd_DispCtrl = 0x80;
+  start();
+  writeByte(Cmd_DispCtrl);// 88+0 to 7 brightness, 88=display on
+  stop();
+}
