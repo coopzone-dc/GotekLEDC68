@@ -42,4 +42,6 @@ Once you install the library zip file (i.e. unzip it in your Arduino/libraries f
 
 The examples don't show the use of the displayDP(uint8_t dp) function, it's not of much use - i can only get it to turn on/off the decimal point(s) together not independent of each other. It appears from the circuit diagram that this is the only way to use them?
 
+More info on the Wiki page above.
+
 Have fun.
