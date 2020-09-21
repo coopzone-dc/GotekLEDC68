@@ -19,7 +19,7 @@
 TM1651 Display(CLK,DIO);
 void setup()
 {
-  Display.set(2);//BRIGHT_TYPICAL = 2,BRIGHT_DARKEST = 0,BRIGHTEST = 7;
+  Display.displaySet(2);//BRIGHT_TYPICAL = 2,BRIGHT_DARKEST = 0,BRIGHTEST = 7;
 }
 void loop()
 {
