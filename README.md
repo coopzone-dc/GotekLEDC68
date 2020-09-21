@@ -38,7 +38,7 @@ x3=GND
 x4=+5v (3.3-5v)
 </pre>
 
-Once you install the library zip file (i.e. unzip it in your Arduino/libraries folder) you will be able to use the library by using the Sketch/include library menu. See the examples included from the "file/examples/GotekLEDC68" folder.
+Once you install the library zip file (i.e. unzip it in your Arduino/libraries folder) you will be able to use the library by using the Sketch/include library menu. See the examples included from the "file/examples/GotekLEDC68-master" menu.
 
 The examples don't show the use of the displayDP(uint8_t dp) function, it's not of much use - i can only get it to turn on/off the decimal point(s) together not independent of each other. It appears from the circuit diagram that this is the only way to use them?
 
