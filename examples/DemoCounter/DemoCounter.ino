@@ -25,7 +25,7 @@ void loop()
 
 void count()
 {
-    for(uint8_t num = 0; num < 1000; num ++)
+    for(uint16_t num = 0; num < 1000; num ++)
     {
      Display.displayInteger(num);    
            delay(150);
