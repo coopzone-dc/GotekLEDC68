@@ -29,7 +29,7 @@
 //IDE:          Arduino-1.8.12
 //
 // 03/02/21 Changed the value for the digit 6 from 0x7c to 0x7d, ie added a top bar in the display
-//          to disciguesh it from a letter b. Credit to solarmon 
+//          to distinguish it from a letter b. Credit to solarmon 
 //
 /***************************************************************/
 //
