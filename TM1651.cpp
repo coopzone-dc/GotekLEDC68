@@ -27,13 +27,17 @@
 //Mail: derek_cooper@hotmail.com
 //Library to drive LEDC68 Gotek 3 digit LED display
 //IDE:          Arduino-1.8.12
+//
+// 03/02/21 Changed the value for the digit 6 from 0x7c to 0x7d, ie added a top bar in the display
+//          to disciguesh it from a letter b. Credit to solarmon 
+//
 /***************************************************************/
 //
 
 #include "TM1651.h"
 #include <Arduino.h>
 static int8_t NumTab[] = 
-{ 0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7c, 0x07, 0x7f, 0x6f,
+{ 0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f,
   0x77, 0x7c, 0x39, 0x5e, 0x79, 0x71,
   0x00, 0x63, 0x5c, 0x01, 0x40, 0x08
 }; //numbers 0-9, A-F, special chars
