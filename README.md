@@ -1,5 +1,6 @@
 Gotek 3-digit LED display driver
 
+New Version, this version uses different timing for the clk/dao signals. The original can be found in the releases drop down menu.
 
   Author: Derek Cooper
   
