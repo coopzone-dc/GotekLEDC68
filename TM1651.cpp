@@ -56,57 +56,52 @@ TM1651::TM1651(uint8_t Clk, uint8_t Data)
 //  clearDisplay();
 //}
 
-void TM1651::writeByte(int8_t wr_data)
+int TM1651::writeByte(int8_t wr_data)
 {
-  uint8_t i,count1=0;   
-  for(i=0;i<8;i++)        //send 8bit data
-  {
-    digitalWrite(Clkpin,LOW);      
+  uint8_t i,count1;       
+  for(i=0;i<8;i++)        //sent 8bit data
+  { 
+    digitalWrite(Clkpin,LOW);
     if(wr_data & 0x01)digitalWrite(Datapin,HIGH);//LSB first
     else digitalWrite(Datapin,LOW);
-    delayMicroseconds(COUNT/2);
-    wr_data >>= 1;      
+    wr_data >>= 1;
     digitalWrite(Clkpin,HIGH);
-    delayMicroseconds(COUNT/2);
-  }  
+  
+  }
   digitalWrite(Clkpin,LOW); //wait for the ACK
   digitalWrite(Datapin,HIGH);
-  delayMicroseconds(COUNT/4);
-  digitalWrite(Clkpin,HIGH);     
+  digitalWrite(Clkpin,HIGH);
   pinMode(Datapin,INPUT);
-  while(digitalRead(Datapin))    
-  { 
-    count1 +=1;
-    if(count1 == 200)
-    {
+  
+  bitDelay(); 
+  uint8_t ack = digitalRead(Datapin);
+  if (ack == 0)
+  {  
      pinMode(Datapin,OUTPUT);
      digitalWrite(Datapin,LOW);
-     count1 =0;
-    }
-    pinMode(Datapin,INPUT);
   }
+  bitDelay();
   pinMode(Datapin,OUTPUT);
+  bitDelay();
+  
+  return ack;
 }
 
 //send start signal to TM1651
 void TM1651::start(void)
 {
-  digitalWrite(Clkpin,HIGH);//send start signal to TM1651
+  digitalWrite(Clkpin,HIGH);//send start signal to TM1637
   digitalWrite(Datapin,HIGH);
-  delayMicroseconds(COUNT/2);
-  digitalWrite(Datapin,LOW); 
-  delayMicroseconds(COUNT/2);
-  digitalWrite(Clkpin,LOW); 
+  digitalWrite(Datapin,LOW);
+  digitalWrite(Clkpin,LOW);
 } 
 //End signal
 void TM1651::stop(void)
 {
   digitalWrite(Clkpin,LOW);
   digitalWrite(Datapin,LOW);
-  delayMicroseconds(COUNT/2);
   digitalWrite(Clkpin,HIGH);
-  delayMicroseconds(COUNT/2);
-  digitalWrite(Datapin,HIGH); 
+  digitalWrite(Datapin,HIGH);
 }
 
 //******************************************
@@ -181,3 +176,9 @@ void TM1651::displayOff()
   writeByte(Cmd_DispCtrl);// 88+0 to 7 brightness, 88=display on
   stop();
 }
+
+void TM1651::bitDelay(void)
+{
+        delayMicroseconds(50);
+}
+

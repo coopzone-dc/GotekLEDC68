@@ -38,7 +38,6 @@
 #define ADDR_AUTO  0x40
 #define ADDR_FIXED 0x44
 #define STARTADDR  0xc0 
-#define COUNT 8
 
 	/**** definitions for the decimal point, it's not well implememnted in hardwar */
         /**** and of little use.  *******/
@@ -57,7 +56,7 @@ class TM1651
 	uint8_t Cmd_DispCtrl;
 	TM1651(uint8_t, uint8_t);
 	//void init();
-	void writeByte(int8_t wr_data);//write 8bit data to tm1651
+	int writeByte(int8_t wr_data);//write 8bit data to tm1651
 	void start(void);//send start bits
 	void stop(void); //send stop bits
 	void displayNum(uint8_t pos, uint8_t num);
@@ -67,6 +66,7 @@ class TM1651
 	void displayClear(void);
 	void displaySet(uint8_t = BRIGHT_TYPICAL);
 	void displayOff();
+        void bitDelay(void);
   private:
 	uint8_t Clkpin;
 	uint8_t Datapin;
