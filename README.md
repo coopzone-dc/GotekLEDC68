@@ -9,7 +9,7 @@ New Version, this version uses different timing for the clk/dao signals. The ori
   Fred.Chu and Detlef Giessmann
 
 
-  Date:20 September 2020
+  Date:20 May 2021
 
 
 This repository is based on an article found here [[TM1651 Arduino Library]](https://www.instructables.com/id/Arduino-Library-and-Examples-for-TM1651-New-Style-/) 
